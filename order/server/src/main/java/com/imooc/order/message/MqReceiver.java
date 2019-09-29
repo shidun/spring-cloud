@@ -15,35 +15,35 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class MqReceiver {
 
-    @RabbitListener(queuesToDeclare = @Queue("myQueues"))
-    public void process(String message) {
-        log.info("MqReceiver:{}", message);
-    }
-
-    @RabbitListener(bindings = @QueueBinding(
-            value = @Queue("orderQueue"),
-            exchange = @Exchange("orderExchange")
-    ))
-    public void orderProcess(String message) {
-        log.info("orderProcess:{}", message);
-    }
-
-    @RabbitListener(bindings = @QueueBinding(
-            exchange = @Exchange("productExchange"),
-            key = "product",
-            value = @Queue("productQueue")
-
-    ))
-    public void productProcess(String message) {
-        log.info("productProcess:{}", message);
-    }
-
-    @RabbitListener(bindings = @QueueBinding(
-            exchange = @Exchange("productExchange"),
-            key = "food",
-            value = @Queue("foodQueue")
-    ))
-    public void foodProcess(String message) {
-        log.info("foodProcess:{}", message);
-    }
+//    @RabbitListener(queuesToDeclare = @Queue("myQueues"))
+//    public void process(String message) {
+//        log.info("MqReceiver:{}", message);
+//    }
+//
+//    @RabbitListener(bindings = @QueueBinding(
+//            value = @Queue("orderQueue"),
+//            exchange = @Exchange("orderExchange")
+//    ))
+//    public void orderProcess(String message) {
+//        log.info("orderProcess:{}", message);
+//    }
+//
+//    @RabbitListener(bindings = @QueueBinding(
+//            exchange = @Exchange("productExchange"),
+//            key = "product",
+//            value = @Queue("productQueue")
+//
+//    ))
+//    public void productProcess(String message) {
+//        log.info("productProcess:{}", message);
+//    }
+//
+//    @RabbitListener(bindings = @QueueBinding(
+//            exchange = @Exchange("productExchange"),
+//            key = "food",
+//            value = @Queue("foodQueue")
+//    ))
+//    public void foodProcess(String message) {
+//        log.info("foodProcess:{}", message);
+//    }
 }

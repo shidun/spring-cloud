@@ -1,5 +1,7 @@
 package com.imooc.product.service.impl;
 
+import com.imooc.product.common.JsonUtil;
+import com.imooc.product.common.ProductInfoOutput;
 import com.imooc.product.dataobject.ProductInfo;
 import com.imooc.product.dto.CartDto;
 import com.imooc.product.exception.ProductException;
@@ -8,6 +10,9 @@ import com.imooc.product.enums.ProductStatusEnum;
 import com.imooc.product.repository.ProductCategoryRepository;
 import com.imooc.product.repository.ProductInfoRepository;
 import com.imooc.product.service.ProductService;
+import com.rabbitmq.tools.json.JSONUtil;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +31,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductInfoRepository productInfoRepository;
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     @Transactional
@@ -42,6 +49,10 @@ public class ProductServiceImpl implements ProductService {
             }
             productInfo.setProductStock(stock);
             productInfoRepository.save(productInfo);
+            ProductInfoOutput productInfoOutput = new ProductInfoOutput();
+            BeanUtils.copyProperties(productInfo, productInfoOutput);
+
+            rabbitTemplate.convertAndSend("productInfo", JsonUtil.toJson(productInfoOutput));
         }
     }
 
