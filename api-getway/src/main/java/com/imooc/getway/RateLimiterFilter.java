@@ -36,7 +36,6 @@ public class RateLimiterFilter extends ZuulFilter {
         if (!RATE_LIMITER.tryAcquire()) {
             throw new GetWayException();
         }
-        log.info("----------------------------");
         return null;
     }
 }

@@ -33,6 +33,7 @@ public class ProductController {
      * 构造数据
      */
     @GetMapping("/list")
+//    @CrossOrigin(allowCredentials = "true")
     public ResultVO list(@RequestParam(value = "page", defaultValue = "1") Integer page,
                          @RequestParam(value = "size", defaultValue = "10") Integer size,
                          Map<String , Object> map) {

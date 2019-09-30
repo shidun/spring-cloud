@@ -6,12 +6,15 @@ import com.imooc.user.service.impl.UserInfoServiceImpl;
 import com.imooc.user.utils.CookieUtil;
 import com.imooc.user.utils.ResultVoUtil;
 import com.imooc.user.vo.ResultVO;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
@@ -45,7 +48,14 @@ public class UserController {
     }
 
     @GetMapping("/seller")
-    public ResultVO seller(@RequestParam("openid") String openid, HttpServletResponse response) {
+    public ResultVO seller(@RequestParam("openid") String openid,
+                           HttpServletRequest request,
+                           HttpServletResponse response) {
+        Cookie cookie = CookieUtil.get(request, "token");
+        if (cookie != null && !StringUtils.isEmpty(stringRedisTemplate.opsForValue().get(String.format(RedisConstant.TOKEN_TEMPLATE, cookie.getValue())))) {
+            return ResultVoUtil.success();
+        }
+
         UserInfo userInfo = userInfoService.getByOpenid(openid);
         if (userInfo == null) {
             return ResultVoUtil.error("用户不存在");
