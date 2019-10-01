@@ -12,10 +12,7 @@ import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -30,6 +27,10 @@ import java.util.Map;
 public class OrderController {
     @Autowired
     private OrderServiceImpl orderService;
+    @GetMapping("/test")
+    public ResultVO test() {
+        return ResultVOUtil.success(null);
+    }
 
     @PostMapping("/create")
     public ResultVO create(@Valid OrderForm orderForm, BindingResult bindingResult) {
