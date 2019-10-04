@@ -41,9 +41,9 @@ public class HystrixController {
 //    @HystrixCommand
     @RequestMapping("/getProduct")
     public String getProduct(@RequestParam("num") Integer num) {
-//        if (num == 1) {
-//            return "success";
-//        }
+        if (num == 1) {
+            return "success";
+        }
         throw new RuntimeException("1111");
 //        RestTemplate restTemplate = new RestTemplate();
 //        return restTemplate.postForObject("http://127.0.0.1:8084/product/listForOrder", Arrays.asList("1565404863372550529"), String.class);
