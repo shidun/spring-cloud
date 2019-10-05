@@ -1,13 +1,11 @@
 package com.imooc.order.message;
 
-import com.imooc.server.ServerApplicationTests;
+import com.imooc.order.server.ServerApplicationTests;
 import org.junit.Test;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import static org.junit.Assert.*;
 
 /**
  * Create by Jack SD
